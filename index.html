@@ -10,44 +10,41 @@
 <body>
 
   <header class="testata">
-    <div class="contenitore">
-      <a class="logo" href="index.html">Blog Arte</a>
-      <nav class="categorie" aria-label="Categorie">
-        <a href="#home">Home</a>
-        <a href="#articoli">Articoli</a>
-        <a href="#news">News</a>
-        <a href="#universita">Università</a>
-        <a href="#interviste">Interviste</a>
-      </nav>
-    </div>
+    <a class="logo" href="index.html">Blog Arte</a>
+    <nav class="categorie" aria-label="Categorie">
+      <a href="#home">Home</a>
+      <a href="#articoli">Articoli</a>
+      <a href="#news">News</a>
+      <a href="#universita">Università</a>
+      <a href="#interviste">Interviste</a>
+    </nav>
   </header>
 
   <main>
-    <!-- ===== HOME: carosello di immagini ===== -->
-    <section class="contenitore" id="home">
-      <div class="carosello" aria-roledescription="carosello" aria-label="Immagini in evidenza">
-        <div class="scorrevole">
+    <!-- ===== HOME: carosello a tutto schermo ===== -->
+    <section class="carosello" id="home" aria-roledescription="carosello" aria-label="Immagini in evidenza">
+      <div class="scorrevole">
 
-          <!-- Per mettere una tua foto: carica l'immagine nel repository (es. foto1.jpg)
-               e sostituisci il blocco con:
-               <div class="slide"><img src="foto1.jpg" alt="Descrizione della foto"></div> -->
-          <div class="slide segnaposto s1">Foto 1</div>
-          <div class="slide segnaposto s2">Foto 2</div>
-          <div class="slide segnaposto s3">Foto 3</div>
-          <div class="slide segnaposto s4">Foto 4</div>
+        <!-- Per mettere una tua foto: carica l'immagine nel repository (es. foto1.jpg)
+             e sostituisci la riga del segnaposto con:
+             <div class="slide"><img src="foto1.jpg" alt="Descrizione della foto"></div> -->
+        <div class="slide segnaposto s1">Foto 1</div>
+        <div class="slide segnaposto s2">Foto 2</div>
+        <div class="slide segnaposto s3">Foto 3</div>
+        <div class="slide segnaposto s4">Foto 4</div>
 
-        </div>
-        <button class="freccia sinistra" type="button" aria-label="Immagine precedente">&#8249;</button>
-        <button class="freccia destra" type="button" aria-label="Immagine successiva">&#8250;</button>
-        <div class="punti" aria-hidden="true"></div>
       </div>
-    </section>
 
-    <section class="hero">
-      <div class="contenitore">
+      <div class="velo"></div>
+
+      <div class="titolo-home">
         <h1>Storie, opere e mostre raccontate da noi</h1>
         <p>Un piccolo blog fatto da tre appassionati d'arte.</p>
       </div>
+
+      <button class="freccia sinistra" type="button" aria-label="Immagine precedente">&#8249;</button>
+      <button class="freccia destra" type="button" aria-label="Immagine successiva">&#8250;</button>
+      <div class="punti" aria-hidden="true"></div>
     </section>
 
     <section class="contenitore">
@@ -103,7 +100,7 @@
     <div class="contenitore">© Blog Arte</div>
   </footer>
 
-  <!-- Funzionamento del carosello: scorre da solo ogni 4 secondi -->
+  <!-- Funzionamento del carosello: scorre da solo ogni 5 secondi -->
   <script>
     (function () {
       var carosello = document.querySelector('.carosello');
@@ -128,7 +125,7 @@
           punti[j].className = (j === corrente) ? 'attivo' : '';
         }
       }
-      function avvia() { timer = setInterval(function () { vai(corrente + 1); }, 4000); }
+      function avvia() { clearInterval(timer); timer = setInterval(function () { vai(corrente + 1); }, 5000); }
       function ferma() { clearInterval(timer); }
 
       carosello.querySelector('.sinistra').addEventListener('click', function () { vai(corrente - 1); });
