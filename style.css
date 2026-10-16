@@ -1,0 +1,130 @@
+/* ===== COLORI: cambia questi per cambiare l'aspetto di tutto il sito ===== */
+:root {
+  --sfondo: #faf8f5;        /* sfondo della pagina */
+  --testo: #222222;         /* colore del testo */
+  --principale: #1f3a5f;    /* colore principale (titoli, logo) */
+  --evidenza: #c2410c;      /* colore al passaggio del mouse */
+  --scheda: #ffffff;        /* sfondo delle schede */
+  --bordo: #e7e2da;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: Georgia, "Times New Roman", serif;
+  background: var(--sfondo);
+  color: var(--testo);
+  line-height: 1.6;
+}
+
+a { color: inherit; text-decoration: none; }
+
+.contenitore {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* ===== Testata e menu ===== */
+.testata {
+  background: var(--scheda);
+  border-bottom: 1px solid var(--bordo);
+}
+.testata .contenitore {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding-top: 16px;
+  padding-bottom: 16px;
+}
+.logo {
+  font-size: 1.6rem;
+  font-weight: bold;
+  color: var(--principale);
+}
+.categorie { display: flex; flex-wrap: wrap; gap: 20px; }
+.categorie a {
+  font-family: Arial, sans-serif;
+  font-size: 0.95rem;
+  padding-bottom: 2px;
+  border-bottom: 2px solid transparent;
+  transition: color 0.2s, border-color 0.2s;
+}
+/* Effetto al passaggio del mouse sulle categorie */
+.categorie a:hover {
+  color: var(--evidenza);
+  border-bottom-color: var(--evidenza);
+}
+
+/* ===== Parte iniziale ===== */
+.hero {
+  padding: 60px 0 40px;
+  text-align: center;
+}
+.hero h1 {
+  font-size: clamp(1.8rem, 5vw, 2.8rem);
+  color: var(--principale);
+  line-height: 1.2;
+  margin-bottom: 12px;
+}
+.hero p { font-size: 1.1rem; color: #555; }
+
+/* ===== Sezioni ===== */
+.titolo-sezione {
+  font-size: 1.4rem;
+  color: var(--principale);
+  margin: 30px 0 20px;
+}
+
+/* ===== Schede degli articoli ===== */
+.griglia {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 24px;
+}
+.scheda {
+  background: var(--scheda);
+  border: 1px solid var(--bordo);
+  border-radius: 10px;
+  overflow: hidden;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.scheda:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+}
+.immagine {
+  height: 180px;
+  background: #e9e4dc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #8a8478;
+  font-family: Arial, sans-serif;
+  font-size: 0.9rem;
+}
+.testo { padding: 18px; }
+.etichetta {
+  font-family: Arial, sans-serif;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--evidenza);
+}
+.testo h3 { margin: 6px 0 8px; font-size: 1.2rem; }
+.testo h3 a:hover { color: var(--evidenza); }
+.testo p { font-size: 0.95rem; color: #555; }
+
+.chi-siamo { padding-bottom: 40px; }
+
+/* ===== Fondo pagina ===== */
+.piede {
+  border-top: 1px solid var(--bordo);
+  padding: 24px 0;
+  text-align: center;
+  font-family: Arial, sans-serif;
+  font-size: 0.85rem;
+  color: #777;
+}
