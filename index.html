@@ -13,6 +13,7 @@
     <div class="contenitore">
       <a class="logo" href="index.html">Blog Arte</a>
       <nav class="categorie" aria-label="Categorie">
+        <a href="#home">Home</a>
         <a href="#articoli">Articoli</a>
         <a href="#news">News</a>
         <a href="#universita">Università</a>
@@ -22,6 +23,26 @@
   </header>
 
   <main>
+    <!-- ===== HOME: carosello di immagini ===== -->
+    <section class="contenitore" id="home">
+      <div class="carosello" aria-roledescription="carosello" aria-label="Immagini in evidenza">
+        <div class="scorrevole">
+
+          <!-- Per mettere una tua foto: carica l'immagine nel repository (es. foto1.jpg)
+               e sostituisci il blocco con:
+               <div class="slide"><img src="foto1.jpg" alt="Descrizione della foto"></div> -->
+          <div class="slide segnaposto s1">Foto 1</div>
+          <div class="slide segnaposto s2">Foto 2</div>
+          <div class="slide segnaposto s3">Foto 3</div>
+          <div class="slide segnaposto s4">Foto 4</div>
+
+        </div>
+        <button class="freccia sinistra" type="button" aria-label="Immagine precedente">&#8249;</button>
+        <button class="freccia destra" type="button" aria-label="Immagine successiva">&#8250;</button>
+        <div class="punti" aria-hidden="true"></div>
+      </div>
+    </section>
+
     <section class="hero">
       <div class="contenitore">
         <h1>Storie, opere e mostre raccontate da noi</h1>
@@ -81,6 +102,44 @@
   <footer class="piede">
     <div class="contenitore">© Blog Arte</div>
   </footer>
+
+  <!-- Funzionamento del carosello: scorre da solo ogni 4 secondi -->
+  <script>
+    (function () {
+      var carosello = document.querySelector('.carosello');
+      if (!carosello) return;
+      var scorrevole = carosello.querySelector('.scorrevole');
+      var slide = carosello.querySelectorAll('.slide');
+      var contenitorePunti = carosello.querySelector('.punti');
+      var corrente = 0;
+      var timer;
+
+      var punti = [];
+      for (var i = 0; i < slide.length; i++) {
+        var p = document.createElement('span');
+        contenitorePunti.appendChild(p);
+        punti.push(p);
+      }
+
+      function vai(n) {
+        corrente = (n + slide.length) % slide.length;
+        scorrevole.style.transform = 'translateX(-' + (corrente * 100) + '%)';
+        for (var j = 0; j < punti.length; j++) {
+          punti[j].className = (j === corrente) ? 'attivo' : '';
+        }
+      }
+      function avvia() { timer = setInterval(function () { vai(corrente + 1); }, 4000); }
+      function ferma() { clearInterval(timer); }
+
+      carosello.querySelector('.sinistra').addEventListener('click', function () { vai(corrente - 1); });
+      carosello.querySelector('.destra').addEventListener('click', function () { vai(corrente + 1); });
+      carosello.addEventListener('mouseenter', ferma);
+      carosello.addEventListener('mouseleave', avvia);
+
+      vai(0);
+      avvia();
+    })();
+  </script>
 
 </body>
 </html>

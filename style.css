@@ -119,6 +119,78 @@ a { color: inherit; text-decoration: none; }
 
 .chi-siamo { padding-bottom: 40px; }
 
+/* ===== Carosello (Home) ===== */
+.carosello {
+  position: relative;
+  overflow: hidden;
+  border-radius: 10px;
+  margin-top: 24px;
+  background: #e9e4dc;
+}
+.scorrevole {
+  display: flex;
+  transition: transform 0.6s ease;
+}
+.slide {
+  min-width: 100%;
+  height: clamp(220px, 45vw, 440px);
+}
+.slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+/* Segnaposto colorati: spariscono quando metti le tue foto */
+.segnaposto {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: Arial, sans-serif;
+  font-size: 1.2rem;
+  color: #ffffff;
+}
+.s1 { background: #1f3a5f; }
+.s2 { background: #c2410c; }
+.s3 { background: #4b5d4a; }
+.s4 { background: #6b4e71; }
+
+.freccia {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 42px;
+  height: 42px;
+  border: none;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.85);
+  color: var(--principale);
+  font-size: 1.8rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+.freccia:hover { background: var(--evidenza); color: #ffffff; }
+.sinistra { left: 12px; }
+.destra { right: 12px; }
+
+.punti {
+  position: absolute;
+  bottom: 12px;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+}
+.punti span {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.55);
+}
+.punti span.attivo { background: #ffffff; }
+
 /* ===== Fondo pagina ===== */
 .piede {
   border-top: 1px solid var(--bordo);
