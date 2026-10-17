@@ -140,8 +140,26 @@
 
       carosello.querySelector('.sinistra').addEventListener('click', function () { vai(corrente - 1); });
       carosello.querySelector('.destra').addEventListener('click', function () { vai(corrente + 1); });
-      carosello.addEventListener('mouseenter', ferma);
-      carosello.addEventListener('mouseleave', avvia);
+      // Pausa al passaggio del mouse (solo dove c'è un mouse)
+      if (window.matchMedia('(hover: hover)').matches) {
+        carosello.addEventListener('mouseenter', ferma);
+        carosello.addEventListener('mouseleave', avvia);
+      }
+
+      // Su telefono: si cambia immagine trascinando il dito a destra o a sinistra
+      var inizioX = null;
+      carosello.addEventListener('touchstart', function (e) {
+        inizioX = e.touches[0].clientX;
+      }, { passive: true });
+      carosello.addEventListener('touchend', function (e) {
+        if (inizioX === null) return;
+        var spostamento = e.changedTouches[0].clientX - inizioX;
+        if (Math.abs(spostamento) > 40) {
+          vai(corrente + (spostamento < 0 ? 1 : -1));
+          avvia();
+        }
+        inizioX = null;
+      });
 
       vai(0);
       avvia();

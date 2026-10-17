@@ -1,6 +1,7 @@
-// Menu a tendina "Articoli"
-// Sul computer si apre passando il mouse sopra.
-// Su telefono e tablet si apre toccando "Articoli" (il secondo tocco apre la pagina).
+// Menu del sito: pulsante per telefono + tendina "Articoli"
+// Sul computer la tendina si apre passando il mouse sopra "Articoli".
+// Su telefono compare il pulsante a tre linee: toccandolo si apre il menu,
+// e toccando "Articoli" si aprono le sottosezioni.
 //
 // QUI SOTTO c'è l'elenco delle sottosezioni: è l'unico posto da modificare
 // per cambiare voci, link e immagini del menu in TUTTE le pagine.
@@ -14,11 +15,43 @@ var sottosezioni = [
 ];
 
 (function () {
+  var testata = document.querySelector('.testata');
+  var nav = document.querySelector('.categorie');
   var voci = document.querySelectorAll('.voce-menu');
-  if (!voci.length) return;
 
   var paginaCorrente = window.location.pathname.split('/').pop() || 'index.html';
 
+  function chiudiTutto() {
+    if (testata) testata.classList.remove('menu-aperto');
+    for (var j = 0; j < voci.length; j++) voci[j].classList.remove('aperta');
+    if (bottone) {
+      bottone.setAttribute('aria-expanded', 'false');
+      bottone.setAttribute('aria-label', 'Apri il menu');
+    }
+  }
+
+  // ----- Pulsante a tre linee (visibile solo su telefono, via CSS) -----
+  var bottone = null;
+  if (testata && nav) {
+    bottone = document.createElement('button');
+    bottone.className = 'hamburger';
+    bottone.type = 'button';
+    bottone.setAttribute('aria-label', 'Apri il menu');
+    bottone.setAttribute('aria-expanded', 'false');
+    bottone.innerHTML = '<span></span><span></span><span></span>';
+    testata.insertBefore(bottone, nav);
+
+    bottone.addEventListener('click', function () {
+      var aperto = testata.classList.toggle('menu-aperto');
+      bottone.setAttribute('aria-expanded', aperto ? 'true' : 'false');
+      bottone.setAttribute('aria-label', aperto ? 'Chiudi il menu' : 'Apri il menu');
+      if (!aperto) {
+        for (var j = 0; j < voci.length; j++) voci[j].classList.remove('aperta');
+      }
+    });
+  }
+
+  // ----- Tendina "Articoli" -----
   function costruisci(voce) {
     var tendina = voce.querySelector('.tendina');
     if (!tendina) return;
@@ -74,8 +107,15 @@ var sottosezioni = [
       costruisci(voce);
       var link = voce.querySelector('a');
       link.addEventListener('click', function (e) {
-        var touch = window.matchMedia('(max-width: 700px), (hover: none)').matches;
-        if (touch && !voce.classList.contains('aperta')) {
+        var telefono = window.matchMedia('(max-width: 700px)').matches;
+        var touch = window.matchMedia('(hover: none)').matches;
+        if (telefono) {
+          // Su telefono "Articoli" apre e chiude le sottosezioni
+          // ("Tutti gli articoli" porta alla pagina generale)
+          e.preventDefault();
+          voce.classList.toggle('aperta');
+        } else if (touch && !voce.classList.contains('aperta')) {
+          // Tablet: primo tocco apre la tendina, secondo apre la pagina
           e.preventDefault();
           voce.classList.add('aperta');
         }
@@ -83,12 +123,15 @@ var sottosezioni = [
     })(voci[i]);
   }
 
-  // Toccando fuori dal menu, la tendina si chiude
+  // Toccando fuori dalla testata il menu si chiude
   document.addEventListener('click', function (e) {
-    for (var j = 0; j < voci.length; j++) {
-      if (!voci[j].contains(e.target)) {
-        voci[j].classList.remove('aperta');
-      }
-    }
+    if (testata && !testata.contains(e.target)) chiudiTutto();
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') chiudiTutto();
+  });
+  // Passando dal telefono al computer (es. ruotando lo schermo) si richiude tutto
+  window.addEventListener('resize', function () {
+    if (window.innerWidth > 700) chiudiTutto();
   });
 })();

@@ -249,25 +249,32 @@ a { color: inherit; text-decoration: none; }
 }
 
 /* Quando la tendina è aperta la testata diventa bianca, come nel sito di riferimento */
-/* Vale ogni volta che il mouse passa sulla testata (non solo su Articoli) */
-.testata:hover,
 .testata:has(.voce-menu:focus-within),
 .testata:has(.voce-menu.aperta) {
   background: #ffffff;
   color: #111111;
 }
-.testata:hover .logo,
 .testata:has(.voce-menu:focus-within) .logo,
 .testata:has(.voce-menu.aperta) .logo {
   color: #111111;
 }
-.testata:hover .categorie a.attiva {
-  border-bottom-color: #111111;
-}
-.testata:hover .categorie > a:hover,
-.testata:hover .voce-menu > a:hover {
-  color: var(--evidenza);
-  border-bottom-color: var(--evidenza);
+/* Vale ogni volta che il mouse passa sulla testata (solo dispositivi con mouse) */
+@media (hover: hover) {
+  .testata:hover {
+    background: #ffffff;
+    color: #111111;
+  }
+  .testata:hover .logo {
+    color: #111111;
+  }
+  .testata:hover .categorie a.attiva {
+    border-bottom-color: #111111;
+  }
+  .testata:hover .categorie > a:hover,
+  .testata:hover .voce-menu > a:hover {
+    color: var(--evidenza);
+    border-bottom-color: var(--evidenza);
+  }
 }
 
 .tendina {
@@ -402,23 +409,101 @@ a.etichetta:hover { text-decoration: underline; }
   .testata { flex-wrap: nowrap; }
 }
 
-/* ===== Telefono ===== */
+/* ===== Telefono: menu con pulsante a tre linee (hamburger) ===== */
+.hamburger { display: none; } /* sul computer non si vede */
+
 @media (max-width: 700px) {
-  html { scroll-padding-top: 120px; }
-  .testata { padding: 12px 16px; }
-  .categorie { gap: 6px 16px; }
-  .categorie a { font-size: 0.75rem; }
-  .tendina {
-    width: auto;
+  html { scroll-padding-top: 80px; }
+  .testata { flex-wrap: nowrap; padding: 10px 16px; }
+  .logo { font-size: 1.3rem; }
+
+  /* Pulsante a tre linee, che diventa una X quando il menu è aperto */
+  .hamburger {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    width: 44px;
+    height: 44px;
+    padding: 0 10px;
+    background: none;
+    border: none;
+    color: inherit;
+    cursor: pointer;
+  }
+  .hamburger span {
+    display: block;
+    height: 2px;
+    background: currentColor;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+  }
+  .testata.menu-aperto .hamburger span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .testata.menu-aperto .hamburger span:nth-child(2) { opacity: 0; }
+  .testata.menu-aperto .hamburger span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  .testata.menu-aperto { background: #ffffff; color: #111111; }
+  .testata.menu-aperto .logo { color: #111111; }
+
+  /* Il menu diventa un elenco verticale che si apre sotto la testata */
+  .categorie {
+    display: none;
+    position: absolute;
+    top: 100%;
     left: 0;
     right: 0;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    gap: 0;
+    margin: 0;
+    padding: 4px 16px 16px;
+    background: #ffffff;
+    color: #111111;
+    max-height: calc(100vh - 64px);
+    max-height: calc(100svh - 64px);
+    overflow-y: auto;
+    box-shadow: 0 18px 30px rgba(0, 0, 0, 0.18);
+  }
+  .testata.menu-aperto .categorie { display: flex; }
+  .categorie a {
+    display: block;
+    font-size: 0.95rem;
+    padding: 14px 0;
+    border-bottom: 1px solid #eeeeee;
+  }
+  .categorie a:hover { color: var(--evidenza); border-bottom-color: #eeeeee; }
+  .categorie a.attiva { color: var(--evidenza); border-bottom-color: #eeeeee; }
+
+  /* Voce Articoli: si apre e si chiude con un tocco */
+  .voce-menu > a { display: flex; justify-content: space-between; }
+  .voce-menu > a::before { display: none; }
+  .voce-menu.aperta > a::after { content: " \25B4"; }
+
+  .tendina {
+    display: none;
+    position: static;
+    width: auto;
+    padding: 0 0 6px 14px;
+    background: transparent;
+    box-shadow: none;
+    animation: none;
     grid-template-columns: 1fr;
     gap: 0;
-    padding: 6px 8px;
   }
+  .voce-menu:hover .tendina,
+  .voce-menu:focus-within .tendina { display: none; }
+  .voce-menu.aperta .tendina { display: block; animation: none; }
   .anteprime { display: none; }
-  .elenco { padding: 4px 8px; }
-  .elenco a { font-size: 1rem; padding: 10px 4px; }
+  .elenco { padding: 0; }
+  .elenco a {
+    display: block;
+    font-size: 0.95rem;
+    padding: 12px 0;
+    border-bottom: 1px solid #f2f2f2;
+  }
+  .elenco a::after { display: none; }
+
+  .pagina-interna { padding-top: 84px; }
   .titolo-home { left: 16px; right: 16px; bottom: 60px; }
   .punti { right: 16px; bottom: 22px; }
   .freccia { width: 38px; height: 38px; }
