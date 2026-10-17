@@ -377,6 +377,150 @@ a { color: inherit; text-decoration: none; }
   font-size: 0.85rem;
 }
 
+/* ===== Home: ultimi articoli, fascia scura in stile giornale ===== */
+.ultimi {
+  background: #14161a;
+  color: #f2efe9;
+  padding: 72px 0 80px;
+}
+.contenitore-largo {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 32px;
+}
+
+/* Titolo della sezione con la doppia riga tipica dei giornali */
+.intestazione-giornale {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 16px;
+  padding: 14px 0;
+  margin-bottom: 28px;
+  border-top: 4px double rgba(255, 255, 255, 0.4);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+.intestazione-giornale h2 {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(1.4rem, 3vw, 2rem);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+.vedi-tutti {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--evidenza-chiara);
+  white-space: nowrap;
+  transition: color 0.2s;
+}
+.vedi-tutti:hover { color: #ffffff; }
+
+/* Riquadri: uno grande a sinistra, uno largo in alto a destra e due piccoli sotto */
+.giornale {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 20px;
+}
+.notizia {
+  position: relative;
+  grid-column: span 3;
+  display: flex;
+  flex-direction: column;
+  background: #1c1f26;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  transition: border-color 0.25s, transform 0.25s;
+}
+.notizia.principale { grid-column: span 6; grid-row: span 2; }
+.notizia.larga { grid-column: span 6; }
+.notizia:hover {
+  border-color: var(--evidenza-chiara);
+  transform: translateY(-3px);
+}
+
+.notizia .foto {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 140px;
+  background: linear-gradient(135deg, #1f3a5f, #0d1b2e);
+  color: rgba(255, 255, 255, 0.55);
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 0.85rem;
+  transition: filter 0.25s;
+}
+.notizia:nth-child(2) .foto { background: linear-gradient(135deg, #8a3a12, #3a1a0a); height: 170px; }
+.notizia:nth-child(3) .foto { background: linear-gradient(135deg, #4b5d4a, #1d2a1d); }
+.notizia:nth-child(4) .foto { background: linear-gradient(135deg, #6b4e71, #2a1d2e); }
+.notizia.principale .foto { height: 340px; }
+.notizia img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.notizia:hover .foto { filter: brightness(1.15); }
+
+.notizia .corpo {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding: 20px 22px 22px;
+}
+.notizia .categoria {
+  position: relative;
+  z-index: 1;
+  align-self: flex-start;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--evidenza-chiara);
+}
+.notizia .categoria:hover { text-decoration: underline; }
+.notizia h3 {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.25rem;
+  line-height: 1.25;
+  margin: 8px 0 10px;
+}
+.notizia.principale h3 { font-size: clamp(1.7rem, 3vw, 2.3rem); line-height: 1.15; }
+/* tutto il riquadro è cliccabile */
+.notizia h3 a::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+}
+.notizia:hover h3 a { color: var(--evidenza-chiara); }
+.notizia p {
+  font-size: 0.98rem;
+  color: #c9c4ba;
+  margin-bottom: 14px;
+}
+.notizia .meta {
+  margin-top: auto;
+  padding-top: 12px;
+  border-top: 1px solid rgba(255, 255, 255, 0.14);
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 0.78rem;
+  color: #8f8a80;
+}
+
+/* Tablet */
+@media (max-width: 900px) {
+  .notizia { grid-column: span 6; }
+  .notizia.principale { grid-column: span 12; grid-row: auto; }
+  .notizia.larga { grid-column: span 12; }
+  .notizia.principale .foto { height: 260px; }
+}
+/* Telefono */
+@media (max-width: 600px) {
+  .ultimi { padding: 48px 0 56px; }
+  .contenitore-largo { padding: 0 16px; }
+  .notizia,
+  .notizia.principale,
+  .notizia.larga { grid-column: span 12; }
+  .notizia.principale .foto { height: 210px; }
+  .intestazione-giornale { flex-direction: column; align-items: flex-start; gap: 6px; }
+}
+
 /* ===== Ricerca (lente a destra nella testata) ===== */
 .ricerca {
   display: flex;

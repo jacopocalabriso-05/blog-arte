@@ -55,46 +55,58 @@
       <div class="punti" aria-hidden="true"></div>
     </section>
 
-    <section class="contenitore">
-      <h2 class="titolo-sezione">Ultimi articoli</h2>
-      <div class="griglia">
+    <!-- ===== ULTIMI ARTICOLI: fascia scura, riquadri in stile giornale ===== -->
+    <section class="ultimi" id="ultimi-articoli">
+      <div class="contenitore-largo">
 
-        <article class="scheda" id="articoli">
-          <div class="immagine">Qui andrà una foto</div>
-          <div class="testo">
-            <a class="etichetta" href="articoli.html">Articoli</a>
-            <h3><a href="#">Titolo dell'articolo</a></h3>
-            <p>Qui comparirà l'introduzione, due o tre righe che invitano a leggere.</p>
-          </div>
-        </article>
+        <div class="intestazione-giornale">
+          <h2>Ultimi articoli</h2>
+          <a class="vedi-tutti" href="articoli.html">Tutti gli articoli &rarr;</a>
+        </div>
 
-        <article class="scheda" id="news">
-          <div class="immagine">Qui andrà una foto</div>
-          <div class="testo">
-            <a class="etichetta" href="news.html">News</a>
-            <h3><a href="#">Titolo della news</a></h3>
-            <p>Qui comparirà l'introduzione, due o tre righe che invitano a leggere.</p>
-          </div>
-        </article>
+        <!-- Per ogni articolo nuovo: copia un riquadro "notizia", cambia categoria, titolo,
+             introduzione, autore e data. Il primo riquadro è quello grande, in evidenza. -->
+        <div class="giornale">
 
-        <article class="scheda" id="universita">
-          <div class="immagine">Qui andrà una foto</div>
-          <div class="testo">
-            <a class="etichetta" href="universita.html">Università</a>
-            <h3><a href="#">Titolo dell'articolo sull'università</a></h3>
-            <p>Qui comparirà l'introduzione, due o tre righe che invitano a leggere.</p>
-          </div>
-        </article>
+          <article class="notizia principale">
+            <div class="foto">Qui andrà una foto</div>
+            <div class="corpo">
+              <a class="categoria" href="articoli.html">Articoli</a>
+              <h3><a href="#">Titolo dell'articolo in evidenza</a></h3>
+              <p>Qui comparirà l'introduzione dell'articolo: due o tre righe che invitano a leggere il resto del pezzo.</p>
+              <span class="meta">Autore &middot; Data</span>
+            </div>
+          </article>
 
-        <article class="scheda" id="interviste">
-          <div class="immagine">Qui andrà una foto</div>
-          <div class="testo">
-            <a class="etichetta" href="interviste.html">Interviste</a>
-            <h3><a href="#">Titolo dell'intervista</a></h3>
-            <p>Qui comparirà l'introduzione, due o tre righe che invitano a leggere.</p>
-          </div>
-        </article>
+          <article class="notizia larga">
+            <div class="foto">Qui andrà una foto</div>
+            <div class="corpo">
+              <a class="categoria" href="news.html">News</a>
+              <h3><a href="#">Titolo della news</a></h3>
+              <p>Qui comparirà l'introduzione, due o tre righe che invitano a leggere.</p>
+              <span class="meta">Autore &middot; Data</span>
+            </div>
+          </article>
 
+          <article class="notizia">
+            <div class="foto">Qui andrà una foto</div>
+            <div class="corpo">
+              <a class="categoria" href="universita.html">Università</a>
+              <h3><a href="#">Titolo dell'articolo sull'università</a></h3>
+              <span class="meta">Autore &middot; Data</span>
+            </div>
+          </article>
+
+          <article class="notizia">
+            <div class="foto">Qui andrà una foto</div>
+            <div class="corpo">
+              <a class="categoria" href="interviste.html">Interviste</a>
+              <h3><a href="#">Titolo dell'intervista</a></h3>
+              <span class="meta">Autore &middot; Data</span>
+            </div>
+          </article>
+
+        </div>
       </div>
     </section>
 
