@@ -14,6 +14,19 @@ var sottosezioni = [
   { nome: 'Arte',                  link: 'arte.html',                immagine: '' }
 ];
 
+// ELENCO PER LA RICERCA: la lente cerca tra queste pagine.
+// Quando ci saranno gli articoli, si aggiungono qui (titolo, link e qualche parola chiave).
+var paginePerRicerca = [
+  { titolo: 'Home',                  link: 'index.html',               parole: 'inizio principale carosello' },
+  { titolo: 'Articoli',              link: 'articoli.html',            parole: 'approfondimenti storie' },
+  { titolo: 'Filosofia',             link: 'filosofia.html',           sezione: 'Articoli', parole: 'idee riflessioni pensiero' },
+  { titolo: 'Architettura e design', link: 'architettura-design.html', sezione: 'Articoli', parole: 'spazi forme oggetti edifici' },
+  { titolo: 'Arte',                  link: 'arte.html',                sezione: 'Articoli', parole: 'opere artisti movimenti pittura scultura' },
+  { titolo: 'News',                  link: 'news.html',                parole: 'novita notizie ultime' },
+  { titolo: 'Università',            link: 'universita.html',          parole: 'corsi percorsi universitari' },
+  { titolo: 'Interviste',            link: 'interviste.html',          parole: 'conversazioni artisti protagonisti' }
+];
+
 (function () {
   var testata = document.querySelector('.testata');
   var nav = document.querySelector('.categorie');
@@ -22,6 +35,7 @@ var sottosezioni = [
   var paginaCorrente = window.location.pathname.split('/').pop() || 'index.html';
 
   function chiudiTutto() {
+    chiudiRicerca();
     if (testata) testata.classList.remove('menu-aperto');
     for (var j = 0; j < voci.length; j++) voci[j].classList.remove('aperta');
     if (bottone) {
@@ -48,6 +62,102 @@ var sottosezioni = [
       if (!aperto) {
         for (var j = 0; j < voci.length; j++) voci[j].classList.remove('aperta');
       }
+    });
+  }
+
+  // ----- Ricerca: lente a destra nella testata, al clic compare la barra -----
+  var ricerca = null;
+  var campo = null;
+  var risultati = null;
+
+  function normalizza(testo) {
+    return testo.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+  }
+
+  function chiudiRicerca() {
+    if (!ricerca) return;
+    ricerca.classList.remove('aperta');
+    risultati.hidden = true;
+    ricerca.querySelector('.ricerca-bottone').setAttribute('aria-expanded', 'false');
+  }
+
+  function aggiornaRisultati() {
+    var scritto = campo.value.trim();
+    risultati.innerHTML = '';
+    if (!scritto) { risultati.hidden = true; return; }
+
+    var parole = normalizza(scritto).split(/\s+/);
+    var trovati = paginePerRicerca.filter(function (p) {
+      var testo = normalizza(p.titolo + ' ' + (p.sezione || '') + ' ' + (p.parole || ''));
+      return parole.every(function (w) { return testo.indexOf(w) !== -1; });
+    }).slice(0, 6);
+
+    if (!trovati.length) {
+      var vuoto = document.createElement('li');
+      vuoto.className = 'nessuno';
+      vuoto.textContent = 'Nessun risultato per "' + scritto + '"';
+      risultati.appendChild(vuoto);
+    } else {
+      trovati.forEach(function (p) {
+        var li = document.createElement('li');
+        var a = document.createElement('a');
+        a.href = p.link;
+        a.textContent = p.titolo;
+        if (p.sezione) {
+          var piccolo = document.createElement('small');
+          piccolo.textContent = p.sezione;
+          a.appendChild(piccolo);
+        }
+        li.appendChild(a);
+        risultati.appendChild(li);
+      });
+    }
+    risultati.hidden = false;
+  }
+
+  if (testata && nav) {
+    ricerca = document.createElement('div');
+    ricerca.className = 'ricerca';
+    ricerca.innerHTML =
+      '<form class="ricerca-form" role="search">' +
+        '<input type="search" placeholder="Cerca nel blog…" aria-label="Cerca nel blog" autocomplete="off">' +
+      '</form>' +
+      '<button class="ricerca-bottone" type="button" aria-label="Cerca" aria-expanded="false">' +
+        '<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" ' +
+        'stroke-width="2" stroke-linecap="round" aria-hidden="true">' +
+        '<circle cx="11" cy="11" r="7"></circle><line x1="16.5" y1="16.5" x2="21" y2="21"></line></svg>' +
+      '</button>' +
+      '<ul class="ricerca-risultati" hidden></ul>';
+    testata.appendChild(ricerca);
+
+    campo = ricerca.querySelector('input');
+    risultati = ricerca.querySelector('.ricerca-risultati');
+    var bottoneRicerca = ricerca.querySelector('.ricerca-bottone');
+
+    bottoneRicerca.addEventListener('click', function () {
+      if (ricerca.classList.contains('aperta')) {
+        chiudiRicerca();
+      } else {
+        // si chiude l'eventuale menu del telefono prima di aprire la ricerca
+        testata.classList.remove('menu-aperto');
+        for (var j = 0; j < voci.length; j++) voci[j].classList.remove('aperta');
+        ricerca.classList.add('aperta');
+        bottoneRicerca.setAttribute('aria-expanded', 'true');
+        setTimeout(function () { campo.focus(); }, 50);
+        aggiornaRisultati();
+      }
+    });
+
+    campo.addEventListener('input', aggiornaRisultati);
+    ricerca.querySelector('form').addEventListener('submit', function (e) {
+      e.preventDefault();
+      var primo = risultati.querySelector('a');
+      if (primo) window.location.href = primo.getAttribute('href');
+    });
+
+    // Toccando fuori dalla barra, si chiude
+    document.addEventListener('click', function (e) {
+      if (!ricerca.contains(e.target)) chiudiRicerca();
     });
   }
 

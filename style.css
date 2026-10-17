@@ -250,12 +250,14 @@ a { color: inherit; text-decoration: none; }
 
 /* Quando la tendina è aperta la testata diventa bianca, come nel sito di riferimento */
 .testata:has(.voce-menu:focus-within),
-.testata:has(.voce-menu.aperta) {
+.testata:has(.voce-menu.aperta),
+.testata:has(.ricerca.aperta) {
   background: #ffffff;
   color: #111111;
 }
 .testata:has(.voce-menu:focus-within) .logo,
-.testata:has(.voce-menu.aperta) .logo {
+.testata:has(.voce-menu.aperta) .logo,
+.testata:has(.ricerca.aperta) .logo {
   color: #111111;
 }
 /* Vale ogni volta che il mouse passa sulla testata (solo dispositivi con mouse) */
@@ -373,6 +375,90 @@ a { color: inherit; text-decoration: none; }
   color: #ffffff;
   font-family: Arial, Helvetica, sans-serif;
   font-size: 0.85rem;
+}
+
+/* ===== Ricerca (lente a destra nella testata) ===== */
+.ricerca {
+  display: flex;
+  align-items: center;
+  margin-left: 8px;
+}
+.ricerca-bottone {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  background: none;
+  border: none;
+  color: inherit;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+.ricerca-bottone:hover { color: var(--evidenza-chiara); }
+.testata:has(.ricerca.aperta) .ricerca-bottone:hover { color: var(--evidenza); }
+
+/* La barra è nascosta (larghezza 0) e si allarga quando si preme la lente */
+.ricerca-form {
+  width: 0;
+  overflow: hidden;
+  visibility: hidden;
+  transition: width 0.3s ease, visibility 0s 0.3s;
+}
+.ricerca.aperta .ricerca-form {
+  width: 240px;
+  visibility: visible;
+  transition: width 0.3s ease, visibility 0s;
+}
+.ricerca-form input {
+  width: 100%;
+  padding: 8px 4px;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid currentColor;
+  color: inherit;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 0.95rem;
+  outline: none;
+}
+.ricerca-form input::placeholder { color: currentColor; opacity: 0.55; }
+
+/* Risultati: compaiono sotto la testata */
+.ricerca-risultati {
+  position: absolute;
+  top: 100%;
+  right: 32px;
+  width: min(360px, calc(100vw - 64px));
+  list-style: none;
+  background: #ffffff;
+  color: #222222;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.2);
+  border-radius: 0 0 10px 10px;
+  z-index: 20;
+}
+.ricerca-risultati[hidden] { display: none; }
+.ricerca-risultati li { border-bottom: 1px solid #f0f0f0; }
+.ricerca-risultati li:last-child { border-bottom: none; }
+.ricerca-risultati a {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 13px 20px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 1rem;
+  color: #222222;
+  text-transform: none;
+  letter-spacing: 0;
+  border-bottom: none;
+}
+.ricerca-risultati a:hover { background: #f6f3ee; color: var(--evidenza); }
+.ricerca-risultati small { font-size: 0.78rem; color: #8a8a8a; }
+.ricerca-risultati .nessuno {
+  padding: 14px 20px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 0.95rem;
+  color: #777777;
 }
 
 /* ===== Pagine interne (Articoli, News, Università, Interviste) ===== */
@@ -504,6 +590,14 @@ a.etichetta:hover { text-decoration: underline; }
   .elenco a::after { display: none; }
 
   .pagina-interna { padding-top: 84px; }
+
+  /* Ricerca su telefono: lente accanto al pulsante del menu; da aperta occupa tutta la testata */
+  .ricerca { order: 2; margin-left: auto; }
+  .hamburger { order: 3; }
+  .ricerca.aperta { flex: 1; }
+  .ricerca.aperta .ricerca-form { width: 100%; flex: 1; }
+  .testata:has(.ricerca.aperta) .logo { display: none; }
+  .ricerca-risultati { left: 0; right: 0; width: auto; }
   .titolo-home { left: 16px; right: 16px; bottom: 60px; }
   .punti { right: 16px; bottom: 22px; }
   .freccia { width: 38px; height: 38px; }
