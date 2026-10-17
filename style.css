@@ -249,19 +249,23 @@ a { color: inherit; text-decoration: none; }
 }
 
 /* Quando la tendina è aperta la testata diventa bianca, come nel sito di riferimento */
-.testata:has(.voce-menu:hover),
+/* Vale ogni volta che il mouse passa sulla testata (non solo su Articoli) */
+.testata:hover,
 .testata:has(.voce-menu:focus-within),
 .testata:has(.voce-menu.aperta) {
   background: #ffffff;
   color: #111111;
 }
-.testata:has(.voce-menu:hover) .logo,
+.testata:hover .logo,
 .testata:has(.voce-menu:focus-within) .logo,
 .testata:has(.voce-menu.aperta) .logo {
   color: #111111;
 }
-.testata:has(.voce-menu:hover) .categorie > a:hover,
-.testata:has(.voce-menu:hover) .voce-menu > a:hover {
+.testata:hover .categorie a.attiva {
+  border-bottom-color: #111111;
+}
+.testata:hover .categorie > a:hover,
+.testata:hover .voce-menu > a:hover {
   color: var(--evidenza);
   border-bottom-color: var(--evidenza);
 }
