@@ -195,8 +195,10 @@ a { color: inherit; text-decoration: none; }
 .punti {
   position: absolute;
   bottom: 28px;
-  right: 32px;
+  left: 0;
+  right: 0;
   display: flex;
+  justify-content: center; /* barrette al centro, così non coprono il pallino dell'oroscopo */
   gap: 8px;
 }
 .punti span {
@@ -545,6 +547,157 @@ a { color: inherit; text-decoration: none; }
   .intestazione-giornale { flex-direction: column; align-items: flex-start; gap: 6px; }
 }
 
+/* ===== Oroscopo (pallino in basso a destra nella Home) ===== */
+.oroscopo-bottone {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  z-index: 15;
+  width: 58px;
+  height: 58px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 50%;
+  background: var(--evidenza);
+  color: #ffffff;
+  font-size: 1.6rem;
+  line-height: 1;
+  cursor: pointer;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
+  animation: pulsa-oroscopo 2.8s ease-out infinite;
+  transition: transform 0.2s, background 0.2s;
+}
+.oroscopo-bottone:hover { transform: scale(1.08); background: #e0540f; }
+.oroscopo-bottone.aperto { animation: none; background: #14161a; }
+@keyframes pulsa-oroscopo {
+  0%   { box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35), 0 0 0 0 rgba(251, 146, 60, 0.55); }
+  70%  { box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35), 0 0 0 16px rgba(251, 146, 60, 0); }
+  100% { box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35), 0 0 0 0 rgba(251, 146, 60, 0); }
+}
+
+.oroscopo-pannello {
+  position: fixed;
+  right: 24px;
+  bottom: 96px;
+  z-index: 15;
+  width: 360px;
+  max-width: calc(100vw - 32px);
+  max-height: calc(100vh - 130px);
+  max-height: calc(100svh - 130px);
+  overflow-y: auto;
+  padding: 20px 20px 16px;
+  background: #1c1f26;
+  color: #f2efe9;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-top: 3px solid var(--evidenza-chiara);
+  border-radius: 12px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.45);
+  animation: apri-oroscopo 0.3s ease;
+}
+.oroscopo-pannello[hidden] { display: none; }
+@keyframes apri-oroscopo {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.oroscopo-testa {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+.oroscopo-testa h2 {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.3rem;
+  line-height: 1.2;
+}
+.oroscopo-data {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 0.8rem;
+  text-transform: capitalize;
+  color: #a9a399;
+  margin-top: 2px;
+}
+.oroscopo-chiudi {
+  background: none;
+  border: none;
+  color: #c9c4ba;
+  font-size: 1.8rem;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0 4px;
+}
+.oroscopo-chiudi:hover { color: #ffffff; }
+
+.oroscopo-segni {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  margin-bottom: 16px;
+}
+.oroscopo-segni .segno {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding: 8px 2px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 8px;
+  color: #f2efe9;
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s;
+}
+.oroscopo-segni .segno:hover { background: rgba(255, 255, 255, 0.12); }
+.oroscopo-segni .segno.scelto {
+  background: var(--evidenza);
+  border-color: var(--evidenza);
+}
+.oroscopo-segni .simbolo { font-size: 1.35rem; line-height: 1.2; }
+.oroscopo-segni .nome {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 0.62rem;
+  letter-spacing: 0.02em;
+}
+
+.oroscopo-risultato { min-height: 90px; }
+.oroscopo-risultato h3 {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.25rem;
+  display: inline;
+}
+.oroscopo-risultato small {
+  margin-left: 8px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 0.78rem;
+  color: #a9a399;
+}
+.oroscopo-risultato p {
+  margin-top: 8px;
+  font-size: 1rem;
+  line-height: 1.55;
+  color: #e4dfd5;
+}
+.oroscopo-risultato .invito { color: #a9a399; font-style: italic; }
+.oroscopo-nota {
+  margin-top: 12px;
+  padding-top: 10px;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 0.72rem;
+  color: #8f8a80;
+}
+
+@media (max-width: 600px) {
+  .oroscopo-bottone { right: 16px; bottom: 16px; width: 52px; height: 52px; }
+  .oroscopo-pannello { right: 16px; bottom: 80px; padding: 16px 14px 12px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .oroscopo-bottone { animation: none; }
+}
+
 /* ===== Ricerca (lente a destra nella testata) ===== */
 .ricerca {
   display: flex;
@@ -767,7 +920,7 @@ a.etichetta:hover { text-decoration: underline; }
   .testata:has(.ricerca.aperta) .logo { display: none; }
   .ricerca-risultati { left: 0; right: 0; width: auto; }
   .titolo-home { left: 16px; right: 16px; bottom: 60px; }
-  .punti { right: 16px; bottom: 22px; }
+  .punti { bottom: 22px; }
   .freccia { width: 90px; padding: 0 12px; }
   .freccia::before { width: 38px; height: 38px; }
 }
