@@ -1,146 +1,182 @@
-// OROSCOPO della Home: pulsante in basso a destra che apre un pannello con i 12 segni.
+// Oroscopo del giorno (pallino in basso a destra nella Home)
 //
-// COME SI AGGIORNA: modifica solo i testi qui sotto (e il "periodo").
-// Ogni segno ha: nome, simbolo, date e testo. Salva il file e caricalo su GitHub.
-// I testi attuali sono ESEMPI inventati: sostituiscili con i vostri.
-
-var oroscopoPeriodo = 'Settimana dal 19 al 25 ottobre';
-
-var oroscopoSegni = [
-  { nome: 'Ariete',      simbolo: '\u2648', date: '21 marzo - 19 aprile',
-    testo: 'Una mostra che avevi rimandato torna a chiamarti. Vai senza fretta: la prima opera che ti ferma è quella giusta.' },
-  { nome: 'Toro',        simbolo: '\u2649', date: '20 aprile - 20 maggio',
-    testo: 'Settimana ideale per guardare con calma un quadro che pensavi di conoscere. Troverai un dettaglio nuovo.' },
-  { nome: 'Gemelli',     simbolo: '\u264A', date: '21 maggio - 20 giugno',
-    testo: 'Troppe idee, poco tempo: scegline una e portala fino in fondo. Un amico ti darà il consiglio decisivo.' },
-  { nome: 'Cancro',      simbolo: '\u264B', date: '21 giugno - 22 luglio',
-    testo: 'Un ricordo legato a un luogo ti ispira qualcosa di creativo. Appuntalo subito, domani sembrerà meno chiaro.' },
-  { nome: 'Leone',       simbolo: '\u264C', date: '23 luglio - 22 agosto',
-    testo: 'Sei sotto i riflettori, ma il merito è anche di chi ti sta accanto. Condividilo e la luce raddoppia.' },
-  { nome: 'Vergine',     simbolo: '\u264D', date: '23 agosto - 22 settembre',
-    testo: 'L\'ordine ti dà serenità, ma questa settimana prova a lasciare spazio all\'imprevisto: porta cose belle.' },
-  { nome: 'Bilancia',    simbolo: '\u264E', date: '23 settembre - 22 ottobre',
-    testo: 'Armonia nei rapporti e buon gusto nelle scelte. Un oggetto di design ti conquista: resisti almeno un giorno.' },
-  { nome: 'Scorpione',   simbolo: '\u264F', date: '23 ottobre - 21 novembre',
-    testo: 'Ti attirano i misteri: un artista poco noto merita la tua attenzione. Cerca, leggi, lasciati sorprendere.' },
-  { nome: 'Sagittario',  simbolo: '\u2650', date: '22 novembre - 21 dicembre',
-    testo: 'Voglia di viaggiare, anche solo con la fantasia. Un libro d\'arte ti porta lontano senza muoverti.' },
-  { nome: 'Capricorno',  simbolo: '\u2651', date: '22 dicembre - 19 gennaio',
-    testo: 'Costanza premiata: un lavoro iniziato da tempo comincia a dare risultati. Concediti una pausa per festeggiare.' },
-  { nome: 'Acquario',    simbolo: '\u2652', date: '20 gennaio - 18 febbraio',
-    testo: 'Un\'idea fuori dagli schemi trova ascolto. Non spiegarla troppo: mostrala, e sarà più chiara delle parole.' },
-  { nome: 'Pesci',       simbolo: '\u2653', date: '19 febbraio - 20 marzo',
-    testo: 'Sensibilità al massimo: musica e colori ti parlano più del solito. Usali per ricaricarti prima del weekend.' }
+// COME MODIFICARLO
+// - Ogni segno ha 3 testi: ogni giorno ne viene mostrato uno diverso, a rotazione.
+// - Per cambiare un testo, modifica la frase tra virgolette.
+// - Per aggiungere altri testi, aggiungi una frase in più (sempre tra virgolette,
+//   separata da una virgola) nell'elenco "testi" del segno.
+var segniOroscopo = [
+  { nome: "Ariete", date: "21 mar – 19 apr", testi: [
+    "Giornata di slancio: una nuova idea merita di diventare un progetto. Parti subito, i dettagli li sistemerai strada facendo.",
+    "Meno fretta oggi: davanti a un'opera fermati un minuto in più. Scoprirai cose che non avevi notato.",
+    "L'energia è alta, ma qualcuno ha bisogno di ascolto. Trattieni la battuta pronta e guadagnerai un'alleanza preziosa."
+  ]},
+  { nome: "Toro", date: "20 apr – 20 mag", testi: [
+    "Concediti un piacere semplice: un buon caffè e quella mostra che rimandi da tempo. La pazienza oggi ti premia.",
+    "Una questione pratica si risolve con calma. Non cedere alla fretta altrui e segui il tuo ritmo.",
+    "Sensibilità per la bellezza ai massimi: scegli con cura ciò che ti circonda, anche un solo oggetto sulla scrivania."
+  ]},
+  { nome: "Gemelli", date: "21 mag – 20 giu", testi: [
+    "Le parole ti vengono facili: è il momento giusto per scrivere, proporre o raccontare. Qualcuno ti ascolterà con attenzione.",
+    "Troppe idee insieme: sceglierne una e portarla fino in fondo sarà la mossa vincente della giornata.",
+    "Una conversazione inattesa apre una prospettiva nuova. Resta curioso e fai una domanda in più."
+  ]},
+  { nome: "Cancro", date: "21 giu – 22 lug", testi: [
+    "Giornata da trascorrere in un luogo che ti fa sentire a casa. Un ricordo ti suggerisce la strada da prendere.",
+    "Le emozioni sono intense ma ti guidano bene: fidati dell'istinto, soprattutto nelle scelte creative.",
+    "Una persona vicina apprezza un tuo piccolo gesto. Non servono grandi parole, basta esserci."
+  ]},
+  { nome: "Leone", date: "23 lug – 22 ago", testi: [
+    "Sei sotto i riflettori e ti riesce bene: presenta il tuo lavoro senza falsa modestia.",
+    "Generosità premiata: condividere un'idea con il gruppo la renderà più forte di quanto immagini.",
+    "Evita di voler avere l'ultima parola. Lasciare spazio agli altri oggi ti rende ancora più brillante."
+  ]},
+  { nome: "Vergine", date: "23 ago – 22 set", testi: [
+    "I dettagli fanno la differenza: rileggi, controlla, sistema. Un piccolo errore evitato ti farà fare bella figura.",
+    "Ritaglia mezz'ora per riordinare ciò che hai in sospeso. Ti sentirai più leggero e pronto a creare.",
+    "Non essere troppo severo con te stesso: un'opera non deve essere perfetta per essere riuscita."
+  ]},
+  { nome: "Bilancia", date: "23 set – 22 ott", testi: [
+    "Cerchi equilibrio e lo trovi in una decisione condivisa. Il confronto con gli altri chiarisce le idee.",
+    "Giornata ideale per l'estetica: dai un tocco di armonia a un lavoro o a un ambiente.",
+    "Un dubbio ti trattiene da giorni: oggi la scelta è più semplice di quanto sembri. Datti un termine e decidi."
+  ]},
+  { nome: "Scorpione", date: "23 ott – 21 nov", testi: [
+    "Intuito affilato: percepisci ciò che gli altri non dicono. Usalo con tatto e aprirai una porta.",
+    "Un tema profondo ti assorbe. Dedicagli tempo, ma ricordati di staccare e fare due passi.",
+    "Una piccola rivalità si scioglie con un gesto sincero. Fare il primo passo ti costa poco e rende molto."
+  ]},
+  { nome: "Sagittario", date: "22 nov – 21 dic", testi: [
+    "Voglia di orizzonti nuovi: pianifica una gita, anche breve, verso un luogo ricco di arte.",
+    "L'entusiasmo contagia il gruppo, ma attento alle promesse troppo grandi. Meglio poche e mantenute.",
+    "Una lettura o un incontro ti suggerisce una direzione. Segui la curiosità: raramente sbaglia."
+  ]},
+  { nome: "Capricorno", date: "22 dic – 19 gen", testi: [
+    "Costanza e metodo ti portano lontano: oggi puoi fare un passo concreto verso un obiettivo di lungo periodo.",
+    "Qualcuno riconosce il tuo impegno. Accetta il complimento senza minimizzare.",
+    "Alleggerisci l'agenda: un'ora di pausa farà bene al lavoro più di un'ora in più alla scrivania."
+  ]},
+  { nome: "Acquario", date: "20 gen – 18 feb", testi: [
+    "Un'idea originale ti viene in mente nel momento meno atteso: annotala subito, potrebbe diventare qualcosa di grande.",
+    "Giornata favorevole alle collaborazioni: unire forze diverse dà un risultato sorprendente.",
+    "Prenditi un momento solo per te: la tua creatività si ricarica nel silenzio."
+  ]},
+  { nome: "Pesci", date: "19 feb – 20 mar", testi: [
+    "L'ispirazione è alta: musica, immagini e sogni a occhi aperti alimentano ciò che stai creando.",
+    "Sei molto empatico oggi: ascolta, ma non caricarti dei problemi altrui. Proteggi le tue energie.",
+    "Un'opera o una pagina ti emoziona più del previsto: concediti il tempo di lasciarti attraversare."
+  ]}
 ];
 
 (function () {
-  // \uFE0E forza il disegno "a tratto" dei simboli, senza emoji colorate
-  var STILE_TESTO = '\uFE0E';
-
+  // ----- Elementi: pallino + pannello -----
   var bottone = document.createElement('button');
   bottone.className = 'oroscopo-bottone';
   bottone.type = 'button';
-  bottone.setAttribute('aria-label', 'Apri l\'oroscopo');
+  bottone.setAttribute('aria-label', "Apri l'oroscopo");
   bottone.setAttribute('aria-expanded', 'false');
-  bottone.innerHTML = '<span class="oroscopo-icona" aria-hidden="true">\u2726</span>' +
-                      '<span class="oroscopo-tooltip">Oroscopo</span>';
+  bottone.innerHTML = '<span aria-hidden="true">\u2726</span>';
 
   var pannello = document.createElement('div');
   pannello.className = 'oroscopo-pannello';
   pannello.setAttribute('role', 'dialog');
-  pannello.setAttribute('aria-label', 'Oroscopo');
+  pannello.setAttribute('aria-label', 'Oroscopo del giorno');
+  pannello.hidden = true;
 
-  var testa = document.createElement('div');
-  testa.className = 'oroscopo-testa';
-  var titolo = document.createElement('div');
-  var h2 = document.createElement('h2');
-  h2.textContent = 'Oroscopo';
-  var periodo = document.createElement('small');
-  periodo.textContent = oroscopoPeriodo;
-  titolo.appendChild(h2);
-  titolo.appendChild(periodo);
-  var chiudi = document.createElement('button');
-  chiudi.type = 'button';
-  chiudi.className = 'oroscopo-chiudi';
-  chiudi.setAttribute('aria-label', 'Chiudi l\'oroscopo');
-  chiudi.textContent = '\u00D7';
-  testa.appendChild(titolo);
-  testa.appendChild(chiudi);
+  var oggi = new Date();
+  var dataTesto = oggi.toLocaleDateString('it-IT', { weekday: 'long', day: 'numeric', month: 'long' });
 
-  var griglia = document.createElement('div');
-  griglia.className = 'oroscopo-segni';
-
-  var testo = document.createElement('div');
-  testo.className = 'oroscopo-testo';
-  testo.textContent = 'Scegli il tuo segno per leggere l\'oroscopo.';
-
-  var nota = document.createElement('p');
-  nota.className = 'oroscopo-nota';
-  nota.textContent = 'Solo per divertimento.';
-
-  var pulsanti = [];
-
-  function scegli(i) {
-    for (var k = 0; k < pulsanti.length; k++) {
-      pulsanti[k].classList.toggle('attivo', k === i);
-    }
-    var s = oroscopoSegni[i];
-    testo.innerHTML = '';
-    var nome = document.createElement('h3');
-    nome.textContent = s.nome;
-    var date = document.createElement('small');
-    date.textContent = s.date;
-    var p = document.createElement('p');
-    p.textContent = s.testo;
-    testo.appendChild(nome);
-    testo.appendChild(date);
-    testo.appendChild(p);
-  }
-
-  oroscopoSegni.forEach(function (s, i) {
-    var b = document.createElement('button');
-    b.type = 'button';
-    b.className = 'oroscopo-segno';
-    var simbolo = document.createElement('span');
-    simbolo.className = 'oroscopo-simbolo';
-    simbolo.textContent = s.simbolo + STILE_TESTO;
-    var nome = document.createElement('span');
-    nome.textContent = s.nome;
-    b.appendChild(simbolo);
-    b.appendChild(nome);
-    b.addEventListener('click', function () { scegli(i); });
-    griglia.appendChild(b);
-    pulsanti.push(b);
-  });
-
-  pannello.appendChild(testa);
-  pannello.appendChild(griglia);
-  pannello.appendChild(testo);
-  pannello.appendChild(nota);
-
-  function apri() {
-    pannello.classList.add('aperto');
-    bottone.setAttribute('aria-expanded', 'true');
-    bottone.setAttribute('aria-label', 'Chiudi l\'oroscopo');
-  }
-  function chiudiPannello() {
-    pannello.classList.remove('aperto');
-    bottone.setAttribute('aria-expanded', 'false');
-    bottone.setAttribute('aria-label', 'Apri l\'oroscopo');
-  }
-
-  bottone.addEventListener('click', function () {
-    if (pannello.classList.contains('aperto')) chiudiPannello(); else apri();
-  });
-  chiudi.addEventListener('click', chiudiPannello);
-  document.addEventListener('keydown', function (e) {
-    if (e.key === 'Escape') chiudiPannello();
-  });
-  // Cliccando fuori dal pannello si chiude
-  document.addEventListener('click', function (e) {
-    if (!pannello.contains(e.target) && !bottone.contains(e.target)) chiudiPannello();
-  });
+  pannello.innerHTML =
+    '<div class="oroscopo-testa">' +
+      '<div><h2>Oroscopo del giorno</h2><p class="oroscopo-data"></p></div>' +
+      '<button class="oroscopo-chiudi" type="button" aria-label="Chiudi">&times;</button>' +
+    '</div>' +
+    '<div class="oroscopo-segni"></div>' +
+    '<div class="oroscopo-risultato" aria-live="polite"></div>' +
+    '<p class="oroscopo-nota">Scritto per gioco e intrattenimento.</p>';
 
   document.body.appendChild(pannello);
   document.body.appendChild(bottone);
+
+  pannello.querySelector('.oroscopo-data').textContent = dataTesto;
+  var contenitoreSegni = pannello.querySelector('.oroscopo-segni');
+  var risultato = pannello.querySelector('.oroscopo-risultato');
+  var bottoniSegni = [];
+
+  // Numero del giorno: cambia ogni giorno, così il testo cambia a rotazione
+  var giorno = Math.floor(Date.UTC(oggi.getFullYear(), oggi.getMonth(), oggi.getDate()) / 86400000);
+
+  function mostra(i) {
+    var s = segniOroscopo[i];
+    var testo = s.testi[(giorno + i) % s.testi.length];
+    risultato.innerHTML = '';
+    var titolo = document.createElement('h3');
+    titolo.textContent = s.nome;
+    var date = document.createElement('small');
+    date.textContent = s.date;
+    var p = document.createElement('p');
+    p.textContent = testo;
+    risultato.appendChild(titolo);
+    risultato.appendChild(date);
+    risultato.appendChild(p);
+    for (var k = 0; k < bottoniSegni.length; k++) {
+      bottoniSegni[k].className = 'segno' + (k === i ? ' scelto' : '');
+    }
+    try { localStorage.setItem('oroscopoSegno', String(i)); } catch (e) {}
+  }
+
+  segniOroscopo.forEach(function (s, i) {
+    var b = document.createElement('button');
+    b.type = 'button';
+    b.className = 'segno';
+    b.title = s.nome + ' (' + s.date + ')';
+    var simbolo = document.createElement('span');
+    simbolo.className = 'simbolo';
+    simbolo.textContent = String.fromCharCode(0x2648 + i) + '\uFE0E';
+    var nome = document.createElement('span');
+    nome.className = 'nome';
+    nome.textContent = s.nome;
+    b.appendChild(simbolo);
+    b.appendChild(nome);
+    b.addEventListener('click', function () { mostra(i); });
+    contenitoreSegni.appendChild(b);
+    bottoniSegni.push(b);
+  });
+
+  // Se il visitatore aveva già scelto il suo segno, lo ritrova
+  var salvato = null;
+  try { salvato = localStorage.getItem('oroscopoSegno'); } catch (e) {}
+  if (salvato !== null && segniOroscopo[parseInt(salvato, 10)]) {
+    mostra(parseInt(salvato, 10));
+  } else {
+    var invito = document.createElement('p');
+    invito.className = 'invito';
+    invito.textContent = 'Scegli il tuo segno per leggere cosa dicono le stelle oggi.';
+    risultato.appendChild(invito);
+  }
+
+  // ----- Apertura e chiusura -----
+  function apri() {
+    pannello.hidden = false;
+    bottone.classList.add('aperto');
+    bottone.setAttribute('aria-expanded', 'true');
+    bottone.setAttribute('aria-label', "Chiudi l'oroscopo");
+  }
+  function chiudi() {
+    pannello.hidden = true;
+    bottone.classList.remove('aperto');
+    bottone.setAttribute('aria-expanded', 'false');
+    bottone.setAttribute('aria-label', "Apri l'oroscopo");
+  }
+
+  bottone.addEventListener('click', function () {
+    if (pannello.hidden) apri(); else chiudi();
+  });
+  pannello.querySelector('.oroscopo-chiudi').addEventListener('click', chiudi);
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') chiudi();
+  });
+  document.addEventListener('click', function (e) {
+    if (!pannello.hidden && !pannello.contains(e.target) && !bottone.contains(e.target)) chiudi();
+  });
 })();
