@@ -426,6 +426,7 @@ a { color: inherit; text-decoration: none; }
   border-top: 4px double rgba(255, 255, 255, 0.4);
   border-bottom: 1px solid rgba(255, 255, 255, 0.2);
 }
+.intestazione-giornale h1,
 .intestazione-giornale h2 {
   font-family: Georgia, "Times New Roman", serif;
   font-size: clamp(1.4rem, 3vw, 2rem);
@@ -529,6 +530,54 @@ a { color: inherit; text-decoration: none; }
   color: #8f8a80;
 }
 
+/* Altri colori per i riquadri dal quinto in poi (pagine Articoli, Filosofia, ecc.) */
+.notizia:nth-child(5) .foto { background: linear-gradient(135deg, #8a3a12, #3a1a0a); }
+.notizia:nth-child(6) .foto { background: linear-gradient(135deg, #1f3a5f, #0d1b2e); }
+.notizia:nth-child(7) .foto { background: linear-gradient(135deg, #6b4e71, #2a1d2e); }
+.notizia:nth-child(8) .foto { background: linear-gradient(135deg, #4b5d4a, #1d2a1d); }
+
+/* ===== Pagine Articoli, Filosofia, Architettura e design, Arte: stesso stile della Home ===== */
+.pagina-scura {
+  background: #14161a;
+  color: #f2efe9;
+  padding: 120px 0 80px;
+  min-height: 90vh;
+}
+.pagina-scura .intestazione-giornale { margin-bottom: 18px; }
+.intro-sezione {
+  max-width: 720px;
+  margin-bottom: 24px;
+  font-size: 1.1rem;
+  color: #c9c4ba;
+}
+/* Pulsanti per passare da una sottosezione all'altra */
+.filtri {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 32px;
+}
+.filtri a {
+  padding: 8px 16px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 999px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #c9c4ba;
+  transition: color 0.2s, border-color 0.2s, background 0.2s;
+}
+.filtri a:hover {
+  color: var(--evidenza-chiara);
+  border-color: var(--evidenza-chiara);
+}
+.filtri a.attivo {
+  background: var(--evidenza);
+  border-color: var(--evidenza);
+  color: #ffffff;
+}
+
 /* Tablet */
 @media (max-width: 900px) {
   .notizia { grid-column: span 6; }
@@ -539,6 +588,7 @@ a { color: inherit; text-decoration: none; }
 /* Telefono */
 @media (max-width: 600px) {
   .ultimi { padding: 48px 0 56px; }
+  .pagina-scura { padding: 88px 0 56px; }
   .contenitore-largo { padding: 0 16px; }
   .notizia,
   .notizia.principale,
