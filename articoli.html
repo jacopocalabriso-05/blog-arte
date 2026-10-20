@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Articoli - Blog Arte</title>
-  <meta name="description" content="Gli articoli del blog.">
+  <meta name="description" content="Tutti gli articoli del blog: filosofia, architettura e design, arte.">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -29,40 +29,101 @@
     </nav>
   </header>
 
-  <main class="pagina-interna">
-    <section class="contenitore">
-      <div class="intestazione-pagina">
+  <main class="pagina-scura">
+    <div class="contenitore-largo">
+
+      <div class="intestazione-giornale">
         <h1>Articoli</h1>
-        <p>Approfondimenti e storie sull'arte.</p>
+      </div>
+      <p class="intro-sezione">Approfondimenti e storie sull'arte, tra filosofia, architettura e design.</p>
+
+      <div class="filtri" aria-label="Sottosezioni">
+        <a class="attivo" href="articoli.html">Tutti</a>
+        <a href="filosofia.html">Filosofia</a>
+        <a href="architettura-design.html">Architettura e design</a>
+        <a href="arte.html">Arte</a>
       </div>
 
-      <div class="griglia">
-        <article class="scheda">
-          <div class="immagine">Qui andrà una foto</div>
-          <div class="testo">
-            <span class="etichetta">Articoli</span>
-            <h3><a href="#">Titolo dell'articolo</a></h3>
-            <p>Qui comparirà l'introduzione, due o tre righe che invitano a leggere.</p>
+      <!-- Per ogni articolo nuovo: copia un riquadro "notizia", cambia categoria, titolo,
+           introduzione, autore e data. Il primo riquadro è quello grande, in evidenza. -->
+      <div class="giornale">
+
+        <article class="notizia principale">
+          <div class="foto">Qui andrà una foto</div>
+          <div class="corpo">
+            <a class="categoria" href="filosofia.html">Filosofia</a>
+            <h3><a href="#">Titolo dell'articolo in evidenza</a></h3>
+            <p>Qui comparirà l'introduzione dell'articolo: due o tre righe che invitano a leggere il resto del pezzo.</p>
+            <span class="meta">Autore &middot; Data</span>
           </div>
         </article>
-        <article class="scheda">
-          <div class="immagine">Qui andrà una foto</div>
-          <div class="testo">
-            <span class="etichetta">Articoli</span>
+
+        <article class="notizia larga">
+          <div class="foto">Qui andrà una foto</div>
+          <div class="corpo">
+            <a class="categoria" href="arte.html">Arte</a>
             <h3><a href="#">Titolo dell'articolo</a></h3>
             <p>Qui comparirà l'introduzione, due o tre righe che invitano a leggere.</p>
+            <span class="meta">Autore &middot; Data</span>
           </div>
         </article>
-        <article class="scheda">
-          <div class="immagine">Qui andrà una foto</div>
-          <div class="testo">
-            <span class="etichetta">Articoli</span>
+
+        <article class="notizia">
+          <div class="foto">Qui andrà una foto</div>
+          <div class="corpo">
+            <a class="categoria" href="architettura-design.html">Architettura e design</a>
             <h3><a href="#">Titolo dell'articolo</a></h3>
-            <p>Qui comparirà l'introduzione, due o tre righe che invitano a leggere.</p>
+            <span class="meta">Autore &middot; Data</span>
           </div>
         </article>
+
+        <article class="notizia">
+          <div class="foto">Qui andrà una foto</div>
+          <div class="corpo">
+            <a class="categoria" href="arte.html">Arte</a>
+            <h3><a href="#">Titolo dell'articolo</a></h3>
+            <span class="meta">Autore &middot; Data</span>
+          </div>
+        </article>
+
+        <article class="notizia">
+          <div class="foto">Qui andrà una foto</div>
+          <div class="corpo">
+            <a class="categoria" href="filosofia.html">Filosofia</a>
+            <h3><a href="#">Titolo dell'articolo</a></h3>
+            <span class="meta">Autore &middot; Data</span>
+          </div>
+        </article>
+
+        <article class="notizia">
+          <div class="foto">Qui andrà una foto</div>
+          <div class="corpo">
+            <a class="categoria" href="arte.html">Arte</a>
+            <h3><a href="#">Titolo dell'articolo</a></h3>
+            <span class="meta">Autore &middot; Data</span>
+          </div>
+        </article>
+
+        <article class="notizia">
+          <div class="foto">Qui andrà una foto</div>
+          <div class="corpo">
+            <a class="categoria" href="architettura-design.html">Architettura e design</a>
+            <h3><a href="#">Titolo dell'articolo</a></h3>
+            <span class="meta">Autore &middot; Data</span>
+          </div>
+        </article>
+
+        <article class="notizia">
+          <div class="foto">Qui andrà una foto</div>
+          <div class="corpo">
+            <a class="categoria" href="filosofia.html">Filosofia</a>
+            <h3><a href="#">Titolo dell'articolo</a></h3>
+            <span class="meta">Autore &middot; Data</span>
+          </div>
+        </article>
+
       </div>
-    </section>
+    </div>
   </main>
 
   <footer class="piede">
